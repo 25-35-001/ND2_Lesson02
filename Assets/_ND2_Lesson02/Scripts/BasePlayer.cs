@@ -1,0 +1,58 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class BasePlayer : MonoBehaviour
+{
+    //===Protected Value===//
+    protected Vector2 _inputMoveValue;//（2次元ベクトル）移動入力値
+    protected float _inputShotValue;  //（小数点数）攻撃入力値
+
+    void Start()
+    {
+        ////GameManagerに自身(BasePlayer)の情報を登録
+        ////GameManager.Instance.players = new BasePlayer[] { this };
+        //GameManager.Instance.EnterPlayer(this);
+
+        ////↓GameManagerのInstanceは静的変数なので、GameManager.Instanceで直接参照できる。
+        //Debug.Log($"プレイヤーから{GameManager.Instance}へアクセス。");
+        //Debug.Log($"敵の座標は{GameManager.Instance.enemies[0].transform.position}にいる！！");
+    }
+
+    void Update()
+    {
+    
+    }
+    //===初期化メソッド===//
+    public void Initialize(Vector2 position)
+    { 
+        transform.position = position;//初期位置
+    }
+
+    //===移動メソッド===//
+    public void Movement()
+    {
+        //Translate(入力値(m) * 時間単位(s))で移動
+        transform.Translate(_inputMoveValue * Time.deltaTime);
+
+        Debug.Log($"{transform.name} >> 移動");
+    }
+
+    //===攻撃メソッド===//
+    public void Shot()
+    {
+        Debug.Log($"{transform.name} >> 攻撃");
+    }
+
+    //===移動入力イベント
+    protected void OnMove(InputValue value)
+    {
+        Debug.Log($"移動入力値 = {value.Get<Vector2>()}");
+        _inputMoveValue = value.Get<Vector2>();//値を変数に保存
+    }
+
+    protected void OnShot(InputValue value)
+    {
+        Debug.Log($"攻撃入力値 = {value.Get<float>()}");
+        _inputMoveValue = value.Get<Vector2>();//値を変数に保存
+    }
+}

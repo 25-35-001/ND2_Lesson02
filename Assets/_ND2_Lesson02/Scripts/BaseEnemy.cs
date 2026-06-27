@@ -15,7 +15,7 @@ public class BaseEnemy : MonoBehaviour
         
     }
 
-    //初期化メソッド
+    //===初期化メソッド===//
     public void Initialize(Vector2 position)
     { 
         transform.position = position;
